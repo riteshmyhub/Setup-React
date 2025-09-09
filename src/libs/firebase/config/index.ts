@@ -3,7 +3,7 @@ import { getMessaging, onMessage } from "firebase/messaging";
 import { getDeviceToken, swRegister, swUnregister } from "../utils";
 
 async function getFirebaseConfig() {
-   const response = await fetch("https://api-6nsy.onrender.com/api/v1/firebase-config");
+   const response = await fetch("/firebase.config.json");
    const firebaseConfig = await response.json();
    return firebaseConfig?.data?.config;
 }

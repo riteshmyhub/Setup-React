@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/libs/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/libs/redux/hooks";
 import { RouterLink } from "@/libs/router/components";
 import { AsideMenu } from "@/shared/components";
 import { useMediaQuery } from "@/shared/hooks";
@@ -10,6 +10,10 @@ import { MdLogout } from "react-icons/md";
 import { LuBell } from "react-icons/lu";
 import { RiMenuFold2Line } from "react-icons/ri";
 import { CiSettings } from "react-icons/ci";
+import { authService } from "../(auth)/services/auth.service";
+import { Button } from "@/shared/ui";
+import { PushNotification } from "@/libs/firebase/components";
+import { useAppRouter } from "@/libs/router/hooks";
 
 const links = [
    {
@@ -30,8 +34,10 @@ const links = [
 ];
 export default function UserLayout() {
    const asideRef = useRef<any>(null);
+   const router = useAppRouter();
    const screen = useMediaQuery();
-   const { session } = useAppSelector((state) => state.auth);
+   const dispatch = useAppDispatch();
+   const { session, logout } = useAppSelector((state) => state.auth);
 
    const onToggle = () => {
       asideRef.current?.setToggle((x: boolean) => !x);
@@ -54,7 +60,8 @@ export default function UserLayout() {
                         {props.isToggle && <span className="text-[10px] font-semibold text-[#716F6F] block uppercase">{session.data?.role}</span>}
                      </div>
                   </div>
-                  <div className="p-3">
+                  <div className="p-2">
+                     <PushNotification />
                      {links.map(({ to, Icon, label }) => (
                         <RouterLink
                            key={to}
@@ -67,9 +74,9 @@ export default function UserLayout() {
                   </div>
                </div>
                <div className="border-gray-300 border-t h-[57px] flex justify-center items-center p-2">
-                  <button className="w-full text-[13px] py-2 px-3 rounded-[7px]  gap-2 mb-1 flex items-center justify-center">
+                  <Button accent="error" variant="link" onClick={() => dispatch(authService.logout.api())} loading={logout.isLoading}>
                      <MdLogout size={17} /> {props.isToggle || screen.sm ? "logout" : ""}
-                  </button>
+                  </Button>
                </div>
             </aside>
          )}>
@@ -81,8 +88,8 @@ export default function UserLayout() {
                <span className="font-bold text-[20px] block md:hidden">TraceYards</span>
             </span>
             <div className="flex items-center gap-2">
-               <button>
-                  <img src="/images/avartar.png" alt="" width={24} height={24} className="block rounded-full border" />
+               <button className="cursor-pointer" onClick={() => router.replace("/profile")}>
+                  <img src="/images/avartar.png" alt="" width={28} height={28} className="block rounded-full border" />
                </button>
                <span className="px-2">|</span>
                <span //

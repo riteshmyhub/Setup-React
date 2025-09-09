@@ -21,6 +21,15 @@ const BUTTON = {
          info: "bg-transparent text-info border border-info hover:bg-info hover:text-white",
          dark: "bg-transparent text-dark border border-dark hover:bg-dark hover:text-white",
       },
+      link: {
+         primary: "text-primary hover:underline hover:text-primary/80",
+         secondary: "text-secondary hover:underline hover:text-secondary/80",
+         done: "text-done hover:underline hover:text-done/80",
+         error: "text-error hover:underline hover:text-error/80",
+         warn: "text-warn hover:underline hover:text-warn/80",
+         info: "text-info hover:underline hover:text-info/80",
+         dark: "text-dark hover:underline hover:text-dark/80",
+      },
    },
    size: {
       xs: "px-2 py-1 text-xs rounded", // extra small

@@ -5,7 +5,7 @@ importScripts("https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-com
 // Load Firebase config dynamically
 async function initFirebase() {
    try {
-      const response = await fetch("https://api-6nsy.onrender.com/api/v1/firebase-config");
+      const response = await fetch("/firebase.config.json");
       const data = await response.json();
       const firebaseConfig = data?.data?.config;
 
